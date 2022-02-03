@@ -1,69 +1,115 @@
-//import java.util.*; -> 하나만 선언해도 대부분 라이브러리 사용 가능.
+package grammar;
 
 import java.util.*;
 
-public class ArrayList_Test {
+public class set_map_string {
     public static void main(String[] args) {
 
-        ArrayList<Integer> array = new ArrayList<Integer>();
-        ArrayList<Integer> copy_array = new ArrayList<Integer>();
-        array.add(5);
-        array.add(2);
-        //깊은 복사 : 리스트명.addAll()
-        copy_array.addAll(array);
-
-        //sort : 리스트명.sort()
-        array.sort(null);
-        System.out.print(array);
-
-        //arrayList의 크기 : 리스트명.size()
-        System.out.print(array.size());
-
-        
-        //set -> List 변경 : 생성자에 값을 넣어주면 set -> List 변경가능
-        //Set과 List의 차이점 1. Set은 중복 값을 삽입할 수 없다. 2. Set은 특정한 순서를 가지고 있지 않다.
+        /* Set */
+        //값 넣기(add)
         Set<String> set = new HashSet<String>();
-        set.add("가");
-        set.add("나");
-        System.out.println(set);
-        List<String> list = new ArrayList<>(set);
-        System.out.println(list);
+        set.add("a");
 
-        //Sort : Collections.sort(리스트명) -> 뒤에 s 잊지말것
-        Collections.sort(list);
+        //값 삭제(remove)
+        set.remove("a");
 
-        //Add : 리스트명.add(넣을 값)
-        list.add("가");
-        System.out.println(list);
+        //Iterator
+        //set의 값을 조회할 때 set명.iterator()를 사용해 반복자를 생성
+        //반복자.hasNext() : 다음 값 존재하는지 확인
+        //반복자.next() : 참조값 가져옴
 
-        //Remove : 리스트명.remove(index)
-        list.remove(list.size()-1); //list의 마지막 값이 리스트에서 제거
-        System.out.println(list);
+        set.add("1");
+        set.add("2");
+        set.add("3");
 
-        //Size : 리스트명.size()
-        System.out.println(list.size());
+        Iterator<String> iter = set.iterator();
+        while(iter.hasNext()){
+            String a = iter.next();
+            System.out.println(a);
+        }
 
-        //Array
+        //size : set의 크기는 set명.size()
+        System.out.println(set.size());
 
-        //Sort : Arrays.sort(배열명) -> 마찬가지로 뒤에 s 잊지말것
-        int[] intArray = new int[5];
-        Arrays.sort(intArray);
+        /* Map */
 
-        //length : 배열명.length
-        int length = intArray.length;
+        //값 넣기(put) : Map에 {key:value}값을 설정할 때 map명.put(key,value) 메소드 사용
+        Map<String,Integer> map = new HashMap<>();
+        map.put("first", 1);
 
-        //!!!! String to Char Array : toCharArray() !!!!
-        Scanner scanner = new Scanner(System.in);
-        String str = scanner.nextLine();
+        //값 가져오기(get) : {key:value}쌍의 value 값을 가져올 때, map명.get(key값) 메소드를 사용
+        System.out.println(map.get("first"));
 
-        char[] strToChar = new char[str.length()];
-        strToChar = str.toCharArray();
-        System.out.println(strToChar);
+        //key값 존재 확인(containsKey) : map명.containsKey(key값)
+        //존재하면 true, 그렇지 않으면 false 반환
+        if(map.containsKey("first")){
+            System.out.println(map.get("first"));
+        }
 
-        //배열 특정 범위 자르기 : Arrays.copyOfRange(배열명,시작점,끝점)
-        int[] ar = {1,2,3,4,5};
-        int[] temp = Arrays.copyOfRange(ar,2,5);
-        System.out.println(Arrays.toString(temp));
+        //Iterator :map명.keySet().iterator()를 사용해 반복자 생성
+        //반복자.hasNext() 메소드로 다음 값이 존재하는지, 반복자.next()로 참조값 가져옴
+        Iterator<String> it = map.keySet().iterator();
+        while(it.hasNext()){
+            String key = it.next();
+            System.out.println(key);
+            int value = map.get(key);
+            System.out.println(value);
+        }
+
+        //size : map명.size()
+        System.out.println(map.size());
+
+        //String
+
+        //대 -> 소문자 변경 : toLowerCase()
+        String str = "ABC";
+        str = str.toLowerCase();
+
+        //소 -> 대문자 변경 : toUpperCase()
+        str = str.toUpperCase();
+
+        //!!!!! String to Array : 스트링명.split() !!!!!
+        str = "가나다라마";
+        String[] str_array = str.split("");
+        System.out.println(Arrays.toString(str_array));
+        System.out.println(str_array[0]);
+
+        //문자열 자르기(substring) : 스트링명.substring()
+        //스트링명.substring(index) : index를 포함한 위치부터 문자열 끝까지 추출
+        //스트링명.substring(시작값, 끝 값) : 시작값부터 끝 값 - 1까지 추출
+        str = "123456";
+        String sub_str1 = str.substring(3);
+        String sub_str2 = str.substring(2,4);
+        System.out.println(sub_str1);
+        System.out.println(sub_str2);
+
+        //문자열 뒤집기 : StringBuilder(문자열).reverse().toString()
+        str = "Reverse";
+        str = new StringBuilder(str).reverse().toString();
+        System.out.println(str);
+
+        //length : 문자열명.length() -> array는 length로 차이가 있다.
+        System.out.println(str.length());
+
+        //문자 치환 : 문자열.replaceAll(변환대상, 변환할 문자)
+        //replaceAll은 정규표현식 사용가능
+        str = "abcde";
+        System.out.println(str.replaceAll("a","b"));
+
+        /*
+        * 정규표현식
+        * ^ : 문자열 시작
+        * $ : 문자열 종료
+        * . : 임의의 한 문자
+        * * : 앞 문자가 없을 수도, 무한정 많을 수도 있음
+        * + : 앞 문자가 하나 이상
+        * ? : 앞 문자가 없거나 하나 있음
+        * [] : 문자의 집합, 번위를 나타냄. 두 문자 사이는 -기호로 범위 표시. []내에서 ^가 선행하여 존재할 경우 not을 나타냄
+        * {} : 횟수 또는 범위
+        * | : 패턴 안에서 or 연산
+        * */
+
+
 
     }
 }
