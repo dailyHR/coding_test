@@ -108,6 +108,12 @@ public class set_map_string {
         * {} : 횟수 또는 범위
         * | : 패턴 안에서 or 연산
         * */
+        
+        //10진수 -> 2진수 : Integer.toBinaryString(변환하고자 하는 수)
+        Integer.toBinaryString(8);
+        
+        //2진수 -> 10진수 : Integer.parseInt("수",2) 
+        Integer.parseInt("1000",2);
 
 
 
